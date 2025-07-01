@@ -1,0 +1,15 @@
+Agent:
+  Browser: chrome
+  WebDriverManager: true
+  Remote: false
+  RemoteUrl:
+  Path: ./drivers/chromedriver.exe
+  Headless: true
+
+
+
+#Agent:
+#  browser: edge
+#  driver: ./drivers/msedgedriver.exe
+#  headless: true
+#  maximum: true

@@ -17,3 +17,6 @@
 # 忽略临时文件和文件夹
 *.tmp
 temp/
+
+# 忽略target目录及其所有内容
+target/

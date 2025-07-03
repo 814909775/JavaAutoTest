@@ -1,12 +1,17 @@
+package Glue.context;
+
+import io.cucumber.java.Scenario;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.FileInputStream;
@@ -17,13 +22,14 @@ import java.util.*;
 
 
 public class WebAgentManager {
-    private static final Logger logger = LogManager.getLogger(WebAgentManager.class);
+    private static final Logger logger = LoggerFactory.getLogger(WebAgentManager.class);
     //read the config
     private static final ThreadLocal<WebDriver> drivers = new ThreadLocal<>();
+    private static String env;
 
 
     private static Map<Object, Object> getConfig() {
-        String configPath = System.getProperty("user.dir") + "config/config.yml";
+        String configPath = System.getProperty("user.dir") + "/config/config.yml";
 
         logger.info("Reading config file: {}", configPath);
 
@@ -41,20 +47,22 @@ public class WebAgentManager {
         Object agentObj = configMap.get("Agent");
         Map<Object, Object> agentConfig = new HashMap<>();
         WebDriver webDriver = null;
-
-        if (agentObj instanceof Map<?, ?>) {
+        if (agentObj instanceof Map<?, ?> ) {
             Map<?, ?> rawMap = (Map<?, ?>) agentObj;
             agentConfig.putAll(rawMap);
+
         } else {
             // 处理Agent不是Map的情况
             System.err.println("Agent配置不是一个Map类型");
         }
-        String browser = (String) agentConfig.get(ConfigKey.Browser);
-        Boolean webDriverManager = (Boolean) agentConfig.get(ConfigKey.WebDriverManager);
-        Boolean remote = (Boolean) agentConfig.get(ConfigKey.Remote);
-        String remoteUrl = (String) agentConfig.get(ConfigKey.RemoteUrl);
-        String driverpath = (String) agentConfig.get(ConfigKey.Path);
-        Boolean headless =(Boolean) agentConfig.get(ConfigKey.Headless);
+
+
+        String browser = (String) agentConfig.get(ConfigKey.Browser.toString());
+        Boolean webDriverManager = (Boolean) agentConfig.get(ConfigKey.WebDriverManager.toString());
+        Boolean remote = (Boolean) agentConfig.get(ConfigKey.Remote.toString());
+        String remoteUrl = (String) agentConfig.get(ConfigKey.RemoteUrl.toString());
+        String driverpath = (String) agentConfig.get(ConfigKey.Path.toString());
+        Boolean headless =(Boolean) agentConfig.get(ConfigKey.Headless.toString());
         List<String> options = Arrays.asList("--disable-gpu","--disable-extensions","--disable-dev-shm-usage","--start-maximized");
 
         if(drivers.get()==null) {
@@ -139,12 +147,22 @@ public class WebAgentManager {
 
 
 
-    private enum ConfigKey {
+    public static void getAndAttachSreenshot(Scenario scenario) {
+        if (scenario.isFailed()&&drivers.get()!=null) {
+            scenario.log("Scenario is Failed");
+            byte[] screenshot = ((TakesScreenshot)drivers.get()).getScreenshotAs(OutputType.BYTES);
+            scenario.attach(screenshot, "image/png", scenario.getName()+UUID.randomUUID().toString());
+        }
+    }
+
+
+    public enum ConfigKey {
         Browser,
         WebDriverManager,
         Remote,
         RemoteUrl,
         Path,
         Headless,
+        Environment
     }
 }

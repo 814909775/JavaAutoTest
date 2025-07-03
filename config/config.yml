@@ -2,10 +2,13 @@ Agent:
   Browser: chrome
   WebDriverManager: true
   Remote: false
-  RemoteUrl:
+  RemoteUrl: ""
   Path: ./drivers/chromedriver.exe
-  Headless: true
+  Headless: false
+  Environment: uat
 
+URL:
+  CBusOL: https://businessaccessuat.citibank.citigroup.com/cbusol/ang/#/login
 
 
 #Agent:

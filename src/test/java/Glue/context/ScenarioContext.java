@@ -1,7 +1,10 @@
+package Glue.context;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class ScenarioContext {
+    public ScenarioContext() {}
 
 
     private final Map<String, Object> context = new HashMap<>();
@@ -29,7 +32,7 @@ public class ScenarioContext {
 
     // 使用枚举定义上下文键，提高类型安全性
     public enum ContextKey {
-        WEB_DRIVER,
+        Agent,
         USER_TOKEN,
         CURRENT_PRODUCT,
         CART_ITEMS

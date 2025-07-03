@@ -1,0 +1,19 @@
+# 忽略图片文件
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.svg
+*.webp
+*.ico
+
+# 忽略可执行文件
+*.exe
+*.dll
+*.com
+*.bat
+
+# 忽略临时文件和文件夹
+*.tmp
+temp/

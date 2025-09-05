@@ -17,3 +17,6 @@ User_Center:
 HGJ_Booking_Dashboard:
   trait: //span[text()="订舱平台"]
   BookingManager: //span[text()="订舱管理"]
+
+Booking_Dashboard:
+  trait: //span[text()="工作台"]

@@ -52,7 +52,7 @@ public class Agent {
              element = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
         } catch (Exception e) {
             Assert.assertNotNull("Cannot find element "+xpath,element);
-
+            logger.error("Cannot find element "+xpath);
         }
 
     }

@@ -1,9 +1,8 @@
 package Agent;
 
-import Glue.context.WebAgentManager;
+
 import org.apache.commons.beanutils.PropertyUtils;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.FileInputStream;
@@ -27,7 +26,11 @@ public class MyFunctions {
             throw new RuntimeException(e);
         }
         try {
-            url = PropertyUtils.getProperty(map,"URL."+webSiteName).toString();
+            String environmentName = System.getProperty ("env");
+            if (environmentName == null) {
+                environmentName = "beta";
+            }
+            url = PropertyUtils.getProperty(map,"URL."+environmentName+"."+webSiteName).toString();
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             throw new RuntimeException(e);
         }

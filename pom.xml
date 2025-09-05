@@ -13,19 +13,33 @@
         <maven.compiler.target>15</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <cucumber.version>7.11.2</cucumber.version>
+        <log4j2.version>2.20.0</log4j2.version> <!-- 统一Log4j2版本 -->
     </properties>
+
     <repositories>
         <repository>
             <id>central</id>
             <url>https://repo1.maven.org/maven2/</url>
         </repository>
     </repositories>
+
     <dependencies>
-<!--        cucumber dependencies-->
+        <!-- Cucumber 依赖 -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
             <version>${cucumber.version}</version>
+            <!-- 排除Cucumber可能引入的日志依赖 -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -35,14 +49,15 @@
             <scope>test</scope>
         </dependency>
 
-<!--        Junit 4-->
+        <!-- JUnit 4 -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
-<!--        Junit integrate with cucumber-->
+
+        <!-- Cucumber + JUnit 集成 -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit</artifactId>
@@ -50,55 +65,83 @@
             <scope>test</scope>
         </dependency>
 
-<!--        Cucumber report-->
+        <!-- Cucumber 报告 -->
         <dependency>
             <groupId>net.masterthought</groupId>
             <artifactId>cucumber-reporting</artifactId>
             <version>5.8.1</version>
         </dependency>
 
-<!--        load Yaml-->
+        <!-- YAML 解析 -->
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
             <version>2.2</version>
         </dependency>
-<!--        read yaml as property-->
+
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <version>1.9.4</version>
         </dependency>
 
-<!--        Handle Yaml-->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.15.2</version>
         </dependency>
+
+        <!-- Selenium WebDriver -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.15.0</version>
+            <!-- 排除Selenium可能引入的日志依赖 -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- WebDriverManager -->
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>5.6.3</version>
+        </dependency>
+
+        <!-- Log4j2 核心依赖（关键修正） -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>2.0.6</version>
         </dependency>
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.4.5</version>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId> <!-- 补充缺失的API依赖 -->
+            <version>${log4j2.version}</version>
         </dependency>
-        <!-- Selenium WebDriver 核心依赖 -->
         <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>4.15.0</version> <!-- 最新稳定版本 -->
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j2.version}</version>
         </dependency>
-
-        <!-- WebDriverManager（自动管理浏览器驱动） -->
-
+        <!-- Log4j2 YAML 配置解析依赖（关键缺失） -->
         <dependency>
-            <groupId>io.github.bonigarcia</groupId>
-            <artifactId>webdrivermanager</artifactId>
-            <version>5.6.3</version>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
+            <version>2.15.2</version> <!-- 与你已有的 jackson-databind 版本保持一致 -->
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j2-impl</artifactId> <!-- 正确的SLF4J绑定 -->
+            <version>${log4j2.version}</version>
         </dependency>
     </dependencies>
 
@@ -108,13 +151,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.10.1</version>
-                <!-- References to interface static methods are allowed only at source level 1.8 or above -->
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
-
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -123,5 +164,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

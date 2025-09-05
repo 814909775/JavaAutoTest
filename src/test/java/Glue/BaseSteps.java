@@ -1,6 +1,7 @@
 package Glue;
 
 import Agent.Agent;
+import Glue.context.WebAgentManager;
 import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -8,10 +9,14 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 import Glue.context.ScenarioContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class BaseSteps {
     private ScenarioContext context;
     private Agent agent;
     public static String currentPage;
+    private static final Logger logger = LoggerFactory.getLogger(BaseSteps.class);
     public BaseSteps(ScenarioContext scenarioContext) {
         this.context = scenarioContext;
         agent=context.getContext(ScenarioContext.ContextKey.Agent);
@@ -20,6 +25,7 @@ public class BaseSteps {
     @When("Agent opens {string}")
     public void agentOpenUrl(String url) {
         agent.open(url);
+        logger.info("Agent opens url:============================================== " + url);
     }
 
     @Given("Agent login {string}")

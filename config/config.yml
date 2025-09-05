@@ -8,8 +8,12 @@ Agent:
   Environment: uat
 
 URL:
-  CBusOL: https://businessaccessuat.citibank.citigroup.com/cbusol/ang/#/login
-  HGJBooking: https://beta-login.hgj.com/login/mail
+  Beta:
+    CBusOL: https://businessaccessuat.citibank.citigroup.com/cbusol/ang/#/login
+    HGJBooking: https://beta-login.hgj.com/login/mail
+  Dev:
+    HGJBooking: https://dev-login.hgj.com/login/mail
+
 
 UserInfo:
   UserName: Cbusol814@163.com

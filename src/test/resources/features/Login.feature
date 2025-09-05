@@ -1,5 +1,5 @@
 
-Feature: Login Function
+Feature: HGJ Login
   Background:
   # 登录步骤之后，可以封装成一步，或者直接保存设置chrome arguments保存user data
     Given Agent opens "HGJBooking"
@@ -12,8 +12,9 @@ Feature: Login Function
     Then Agent is on "User_Center" page
 
 
-  Scenario: Login Scenario1
+  Scenario: HGJ Client Login
     Given Agent clicks "BookingPlatform"
+    Then Agent is on "Booking_Dashboard" page
     # \"([^\"]+)\"
 
 

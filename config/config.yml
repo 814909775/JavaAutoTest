@@ -9,8 +9,11 @@ Agent:
 
 URL:
   CBusOL: https://businessaccessuat.citibank.citigroup.com/cbusol/ang/#/login
+  HGJBooking: https://beta-login.hgj.com/login/mail
 
-
+UserInfo:
+  UserName: Cbusol814@163.com
+  Password: Q13817759419Q
 #Agent:
 #  browser: edge
 #  driver: ./drivers/msedgedriver.exe

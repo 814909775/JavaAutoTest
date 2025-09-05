@@ -1,0 +1,19 @@
+HGJ_Login:
+  trait: //span[text()="登录"]
+  Mailbox: //input[@placeholder="邮箱"]
+  Password: //input[@placeholder="密码"]
+  Login: //span[text()="登录"]
+
+HGJ_Company:
+  trait: //h3[text()="选择登录身份"]
+  MainCompany: //div[text()="海管家订舱平台（演示）"]
+
+User_Center:
+  trait: //div[text()="用户中心"]
+  BookingPlatform: //span[text()="订舱平台"]
+
+
+
+HGJ_Booking_Dashboard:
+  trait: //span[text()="订舱平台"]
+  BookingManager: //span[text()="订舱管理"]

@@ -25,14 +25,9 @@ public class BaseSteps {
     @When("Agent opens {string}")
     public void agentOpenUrl(String url) {
         agent.open(url);
-        logger.info("Agent opens url:============================================== " + url);
+
     }
 
-    @Given("Agent login {string}")
-    public void agentLogin(String url) {
-        // Write code here that turns the phrase above into concrete actions
-        agentOpenUrl(url);
-    }
 
     @Given("Agent type {string} into {string}")
     public void agentTypeInto(String text, String field) {
@@ -51,5 +46,16 @@ public class BaseSteps {
     @And("Agent clicks {string}")
     public void agentClicks(String element) {
         agent.clickElement(element);
+    }
+
+    @When("Agent moves to {string}")
+    public void agentMovesTo(String element) throws InterruptedException {
+        agent.moveToElement(element);
+
+    }
+
+    @And("Agent clicks {string} via CSS")
+    public void agentClicksViaJS(String element) {
+      agent.clickByCSS(element);
     }
 }

@@ -28,7 +28,7 @@ public class MyFunctions {
         try {
             String environmentName = System.getProperty ("env");
             if (environmentName == null) {
-                environmentName = "beta";
+                environmentName = "Beta";
             }
             url = PropertyUtils.getProperty(map,"URL."+environmentName+"."+webSiteName).toString();
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {

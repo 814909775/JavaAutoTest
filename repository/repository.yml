@@ -1,22 +1,32 @@
-HGJ_Login:
+HGJ Login:
   trait: //span[text()="登录"]
   Mailbox: //input[@placeholder="邮箱"]
   Password: //input[@placeholder="密码"]
   Login: //span[text()="登录"]
 
-HGJ_Company:
+HGJ Company:
   trait: //h3[text()="选择登录身份"]
   MainCompany: //div[text()="海管家订舱平台（演示）"]
 
-User_Center:
+User Center:
   trait: //div[text()="用户中心"]
   BookingPlatform: //span[text()="订舱平台"]
+  logistics: //*[@id="PH_Subnav_4"]
+  AIBooking_Link: //div[text()="智能订舱"]
 
 
-
-HGJ_Booking_Dashboard:
-  trait: //span[text()="订舱平台"]
-  BookingManager: //span[text()="订舱管理"]
-
-Booking_Dashboard:
+Booking Dashboard:
   trait: //span[text()="工作台"]
+
+
+
+AIBooking Dashboard:
+  trait: //button[text()="生成MSC报文"]
+  NewBooking_Button: //button[text()="新建订舱"]
+  ByManual: //div[text()="手动录入"]
+  OK: body > div:nth-child(25) > div > div > div > footer > button.el-button.el-button--primary
+
+
+AI Sheet:
+  trait: //span[text()="对比托书"]
+  Generate Delegate Number: //span[text()="自动生成"]

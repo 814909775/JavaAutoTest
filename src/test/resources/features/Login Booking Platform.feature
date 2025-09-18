@@ -11,10 +11,17 @@ Feature: Login Booking Platform
     And Agent clicks "MainCompany"
     Then Agent is on "User Center" page
 
-
+  @test
   Scenario: HGJ Booking - Client Login
     Given Agent clicks "BookingPlatform"
     Then Agent is on "Booking Dashboard" page
+    When Agent clicks "Booking Manager Tab"
+    And Agent clicks "Booking List Tab"
+    And Agent clicks "New Booking Link"
+    Then Agent sees "Quick Booking Dialog"
+    When Agent selects "青岛" in "Port" input
+    And Agent selects "ASL" in "Carrier" input
+    And Agent clicks "Submit"
     # \"([^\"]+)\"
 
 

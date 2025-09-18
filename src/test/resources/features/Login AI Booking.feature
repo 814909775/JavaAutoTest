@@ -13,11 +13,12 @@ Feature: Login AI Booking
     And Agent clicks "AIBooking_Link"
     Then Agent is on "AIBooking Dashboard" page
 
-@test
+
   Scenario: Create AI Booking by manual
     When Agent clicks "NewBooking_Button"
     And Agent clicks "ByManual"
     And Agent clicks "OK" via CSS
     Then Agent is on "AI Sheet" page
     When Agent clicks "Generate Delegate Number"
+
 

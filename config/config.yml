@@ -1,6 +1,6 @@
 Agent:
   Browser: chrome
-  WebDriverManager: true
+  WebDriverManager: false
   Remote: false
   RemoteUrl: ""
   Path: ./drivers/chromedriver.exe

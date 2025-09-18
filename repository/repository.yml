@@ -17,6 +17,14 @@ User Center:
 
 Booking Dashboard:
   trait: //span[text()="工作台"]
+  Booking Manager Tab: //span[text()="订舱管理"]
+  New Booking Link: //span[text()="新建订舱"]
+  Booking List Tab: //span[text()="订单列表"]
+  Quick Booking Dialog: //span[text()="快速订舱"]
+  Port: //input[@placeholder="请选择港口"]
+  Carrier: //input[@placeholder="请选择船司"]
+  Submit: //span[text()="确定"]
+
 
 
 

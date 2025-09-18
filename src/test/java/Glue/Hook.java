@@ -10,6 +10,7 @@ import io.cucumber.java.Scenario;
 import org.openqa.selenium.WebDriver;
 
 import java.net.MalformedURLException;
+import java.time.Duration;
 
 public class Hook {
 
@@ -21,6 +22,7 @@ public class Hook {
     @Before
     public void beforeScenario(Scenario scenario) throws MalformedURLException {
         WebDriver webDriver = WebAgentManager.getOrCreateDriver();
+        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         Agent agent = new Agent(webDriver);
         scenarioContext.setContext(ScenarioContext.ContextKey.Agent,agent);
         scenario.log("Add Driver to Context");

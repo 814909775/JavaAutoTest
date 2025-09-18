@@ -37,7 +37,6 @@ public class BaseSteps {
 
     @Then("Agent is on {string} page" )
     public void agentIsOn(String pageName) {
-
         currentPage=pageName;
         agent.checkElementExists("trait");
 
@@ -58,4 +57,18 @@ public class BaseSteps {
     public void agentClicksViaJS(String element) {
       agent.clickByCSS(element);
     }
+
+    @Then("Agent sees {string}")
+    public void agentSees(String element) {
+        agent.checkElementExists(element);
+    }
+
+    @When("Agent selects {string} in {string} input")
+    public void agentSelectsInInput(String item, String input) throws InterruptedException {
+        agent.inputThenSelectValue(item, input);
+        Thread.sleep(5000);
+
+    }
+
+
 }

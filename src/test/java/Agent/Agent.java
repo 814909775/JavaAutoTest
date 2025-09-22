@@ -1,6 +1,5 @@
 package Agent;
 
-import Glue.context.WebAgentManager;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -17,8 +16,9 @@ import static Glue.BaseSteps.currentPage;
 
 public class Agent {
     private WebDriver driver;
-    private WebDriverWait wait;
-    private Actions actions;
+    private final WebDriverWait wait;
+    private final Actions actions;
+    private final JavascriptExecutor js;
     private static final Logger logger = LoggerFactory.getLogger(Agent.class);
     private static final Pattern XPATH_PATTERN = Pattern.compile(
             "^(/|//)|(@|contains\\(|text\\()",
@@ -26,8 +26,9 @@ public class Agent {
     );
     public Agent(WebDriver driver) {
         this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(6));
         actions = new Actions(driver);
+        js=(JavascriptExecutor)driver;
     }
 
 
@@ -48,23 +49,31 @@ public class Agent {
         if(isXPath(elementName)){
             return getElementByXpath(elementName);
         }else{
-            String xpath = getXpath(currentPage,elementName);
-            logger.info("Element Xpath or Css selector is "+xpath);
+            String xpath = getXpath(currentPage,elementName);;
             return getElementByXpath(xpath);
         }
 
     }
 
     public WebElement getElementByXpath(String xpath){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
-        if(isXPath(xpath)){
 
-//            return wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
-           return  wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+        if(isXPath(xpath)){
+         /*   WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+            try{
+                wait.until(ExpectedConditions.visibilityOf(element));
+            }catch (Exception e){
+                ((JavascriptExecutor) driver).executeScript(
+                        "arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});",
+                        element
+                );
+
+            }*/
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+
         }
         else {
-//            return wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(xpath)));
-            return  wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(xpath)));
+
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(xpath)));
         }
     }
 
@@ -72,17 +81,13 @@ public class Agent {
 
     public void checkElementExists(String elementName) {
 
-        WebElement element = null;
-        try{
-             element = getElement(elementName);
-        } catch (Exception e) {
-            Assert.assertNotNull("Cannot find element "+elementName,element);
-            logger.error("Cannot find element "+elementName);
-        }
+            Assert.assertNotNull("Cannot find element "+elementName, getElement(elementName));
+
 
     }
 
     public void clickElement(String elementName) {
+        scrollToElement(elementName);
         getElement(elementName).click();
     }
 
@@ -90,10 +95,11 @@ public class Agent {
 
     public void typeDataIntoField(String text, String field) {
         WebElement element = getElement(field);
+        element.clear();
         element.sendKeys(text);
     }
 
-    public void moveToElement(String elementName) throws InterruptedException {
+    public void moveToElement(String elementName)  {
 
         WebElement element = getElement(elementName);
         new Actions(driver).moveToElement(element).pause(Duration.ofSeconds(1)).perform();
@@ -126,21 +132,27 @@ public class Agent {
         return XPATH_PATTERN.matcher(selector).find();
     }
 
-    // 判断是否为CSS选择器
-    public boolean isCssSelector(String selector) {
-        // 不是XPath则默认为CSS选择器（简化判断）
-        return !isXPath(selector);
-    }
+    public void selectValue(String item, String input) {
 
-    public void inputThenSelectValue(String item, String input) throws InterruptedException {
+        String xpath = "//span[contains(text(),'{item}')]".replace("{item}", item);
+        clickElement(input);
+        try {
+            clickElement(xpath);
+        } catch (ElementNotInteractableException e) {
+            logger.info("Element not interactable so click it by manual");
+            selectFirstItemByKeyboard();
+        }
+    }
+    public void inputThenSelectValue(String item, String input) {
         getElement(input).sendKeys(item);
         String xpath="//span[contains(text(),'{item}')]".replace("{item}", item);
-
         try{
             clickElement(xpath);
         }catch(Exception e){
-            selectFirstItemByKeyboard(item, input);
+            selectFirstItemByKeyboard();
         }
+
+
 /*   调试元素代码
     getElement(input).click();
         String xpath = "//span[contains(text(),'{item}')]/parent::li".replace("{item}", item);
@@ -158,8 +170,30 @@ public class Agent {
         target.click();*/
     }
 
-    public void selectFirstItemByKeyboard(String item, String input) throws InterruptedException {
+    public void selectFirstItemByKeyboard() {
         actions.keyDown(Keys.ARROW_DOWN).keyUp(Keys.ARROW_DOWN).keyDown(Keys.ENTER).keyUp(Keys.ENTER).perform();
+    }
+
+    public void scrollToElement(String elementName) {
+        actions.moveToElement(getElement(elementName)).perform();
+    }
+
+    public void typeAccordingToFieldName(String text, String fieldName) {
+        String xpath="//*[(local-name()='input' or local-name()='textarea') and @fieldname ='{item}']".replace("{item}", fieldName);
+        actions.moveToElement(getElement(xpath)).perform();
+        typeDataIntoField(text,xpath);
+    }
+
+    public void checkValueOfElement(String content, String fieldName) {
+        String actual = checkValueExist(fieldName);
+        Assert.assertEquals("Doesn't match expect is "+ content +" \n actual is "+actual,content,actual);
+    }
+
+    public String checkValueExist(String field) {
+     //   System.out.println(getElement(field).getAttribute("fielddescription"));
+        String  value = js.executeScript("return arguments[0].value;", getElement(field)).toString();
+        Assert.assertNotNull("Get value fail",value);
+        return value;
     }
 
 

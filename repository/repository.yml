@@ -25,7 +25,27 @@ Booking Dashboard:
   Carrier: //input[@placeholder="请选择船司"]
   Submit: //span[text()="确定"]
 
+Booking Form:
+  trait: //span[text()=" 提交订舱 "]
+  签单方式: //div[@fieldname="signingMethod"]//input
+  付款方式: //div[@fieldname="paymentMethod"]//input
+  拼整标记: //div[@fieldname="containerMark"]//input
+  SOC箱: //div[@fieldname="soc"]//input
+  自动生成: //span[text()=" 自动生成 "]
+  提交订舱: ///span[text()=" 提交订舱 "]
+  暂存草稿: //span[text()=" 暂存草稿 "]
+  委托编号: //input[@fieldname="delegationNo"]
+  运输条款: //div[@fieldname="transportClause"]//input
+  保存: //span[text()="保存"]
 
+
+#  Shipper Name: //input[@fieldname="shipperName"]
+#  Shipper Address: //input[@fieldname="shipperAddress"]
+#  Generate Order: //span[contains(text(),"自动生成")]
+#  Bill Number: //span[@fieldname="billNo"]
+
+草稿箱:
+  trait: //span[text()="删除"]
 
 
 AIBooking Dashboard:
@@ -38,3 +58,5 @@ AIBooking Dashboard:
 AI Sheet:
   trait: //span[text()="对比托书"]
   Generate Delegate Number: //span[text()="自动生成"]
+
+

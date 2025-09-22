@@ -56,7 +56,7 @@ public class MyFunctions {
         try {
             xpath = PropertyUtils.getProperty(map,xpathDic.toString()).toString();
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("读取repository中的xpath失败"+ "key: "+xpathDic,e);
         }
 
         return xpath;

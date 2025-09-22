@@ -35,7 +35,8 @@ public class ScenarioContext {
         Agent,
         USER_TOKEN,
         CURRENT_PRODUCT,
-        CART_ITEMS
+        CART_ITEMS,
+        DelegationNumber
     }
 
 

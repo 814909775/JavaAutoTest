@@ -31,7 +31,7 @@ public class WebAgentManager {
     private static Map<Object, Object> getConfig() {
         String configPath = System.getProperty("user.dir") + "/config/config.yml";
 
-        logger.info("Reading config file: {}", configPath);
+        //logger.info("Reading config file: {}", configPath);
 
         try (FileInputStream fis = new FileInputStream(configPath)) {
             Yaml yaml = new Yaml();

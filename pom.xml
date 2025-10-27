@@ -143,6 +143,28 @@
             <artifactId>log4j-slf4j2-impl</artifactId> <!-- 正确的SLF4J绑定 -->
             <version>${log4j2.version}</version>
         </dependency>
+
+        <!-- Rest Assured 核心依赖 -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>5.3.0</version> <!-- 替换为最新稳定版 -->
+            <scope>test</scope> <!-- 仅在测试代码中使用 -->
+        </dependency>
+
+        <!-- 可选：JSON Path 解析（处理响应中的JSON数据） -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-path</artifactId>
+            <version>5.3.0</version>
+        </dependency>
+
+        <!-- 可选：XML Path 解析（处理响应中的XML数据） -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>xml-path</artifactId>
+            <version>5.3.0</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -10,6 +10,9 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 import Glue.context.ScenarioContext;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import org.openqa.selenium.JavascriptExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +23,7 @@ public class BaseSteps {
     private ScenarioContext context;
     private final Agent agent;
     public static String currentPage;
+/*    public static String currentTime;*/
     private static final Logger logger = LoggerFactory.getLogger(BaseSteps.class);
     public BaseSteps(ScenarioContext scenarioContext) {
         this.context = scenarioContext;
@@ -29,6 +33,7 @@ public class BaseSteps {
     @When("Agent opens {string}")
     public void agentOpenUrl(String url) {
         agent.open(url);
+/*        currentTime=agent.generateTimestamp();*/
 
     }
 
@@ -43,6 +48,7 @@ public class BaseSteps {
     public void agentIsOn(String pageName) {
         currentPage=pageName;
         agent.checkElementExists("trait");
+
 
     }
 
@@ -116,5 +122,15 @@ public class BaseSteps {
         System.out.println("first save "+key+delegationNumber);
     }
 
+
+    @Given("Agent login HGJBooking via API")
+    public void agentLoginViaAPI() {
+        try {
+            agent.apiLogin();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
 }

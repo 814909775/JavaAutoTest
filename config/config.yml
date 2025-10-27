@@ -1,6 +1,6 @@
 Agent:
   Browser: chrome
-  WebDriverManager: false
+  WebDriverManager: true
   Remote: false
   RemoteUrl: ""
   Path: ./drivers/chromedriver.exe
@@ -10,7 +10,8 @@ Agent:
 URL:
   Beta:
     CBusOL: https://businessaccessuat.citibank.citigroup.com/cbusol/ang/#/login
-    HGJBooking: https://beta-login.hgj.com/login/mail
+    HGJBooking-Email: https://beta-login.hgj.com/login/mail
+    HGJBooking-Phone: https://beta-login.hgj.com/
   Dev:
     HGJBooking: https://dev-login.hgj.com/login/mail
 

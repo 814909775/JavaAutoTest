@@ -10,30 +10,42 @@ HGJ Company:
 
 User Center:
   trait: //div[text()="用户中心"]
-  BookingPlatform: //span[text()="订舱平台"]
+  订舱平台: //span[text()="订舱平台"]
   logistics: //*[@id="PH_Subnav_4"]
   AIBooking_Link: //div[text()="智能订舱"]
 
 
-Booking Dashboard:
+订舱主页面:
   trait: //span[text()="工作台"]
-  Booking Manager Tab: //span[text()="订舱管理"]
-  New Booking Link: //span[text()="新建订舱"]
-  Booking List Tab: //span[text()="订单列表"]
-  Quick Booking Dialog: //span[text()="快速订舱"]
-  Port: //input[@placeholder="请选择港口"]
-  Carrier: //input[@placeholder="请选择船司"]
-  Submit: //span[text()="确定"]
+  订舱管理标签: //span[text()="订舱管理"]
+  新建订舱: //span[text()="新建订舱"]
+  订单列表标签: //span[text()="订单列表"]
+  快速订舱dialog: //span[text()="快速订舱"]
+  选择港口: //input[@placeholder="请选择港口"]
+  选择船司: //input[@placeholder="请选择船司"]
+  确定: //span[text()="确定"]
 
-Booking Form:
+订舱表单:
   trait: //span[text()=" 提交订舱 "]
   签单方式: //div[@fieldname="signingMethod"]//input
   付款方式: //div[@fieldname="paymentMethod"]//input
   拼整标记: //div[@fieldname="containerMark"]//input
   SOC箱: //div[@fieldname="soc"]//input
+  箱型: //div[@fieldname="containerType"]//input
+  卸货港: //div[@fieldname="portOfDischargeCode"]//input
+  包装单位: //div[@fieldname="packingUnit"]//input
   自动生成: //span[text()=" 自动生成 "]
   提交订舱: ///span[text()=" 提交订舱 "]
   暂存草稿: //span[text()=" 暂存草稿 "]
+  同卸货港: //span[text()="同卸货港"]
+  船期: //div[@fieldname = "vessel"]
+  选择船期dialog: //span[text() = "选择船期"]
+  无HBL: 
+  船名: //label[text()= '船名']/following-sibling::*//input
+  航次: //label[text()= '航次']/following-sibling::*//input
+  ETD: //label[text()= 'ETD']/following-sibling::*//input
+  航线代码: //label[text()= '航线代码']/following-sibling::*//input
+  直接填入: //span[text()=" 直接填入"]
   委托编号: //input[@fieldname="delegationNo"]
   运输条款: //div[@fieldname="transportClause"]//input
   保存: //span[text()="保存"]

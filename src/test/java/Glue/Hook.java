@@ -15,6 +15,7 @@ import java.time.Duration;
 public class Hook {
 
     private final ScenarioContext scenarioContext;
+    public static String currentTime;
     public Hook(ScenarioContext scenarioContext) {
         this.scenarioContext = scenarioContext;
     }
@@ -27,16 +28,17 @@ public class Hook {
         scenarioContext.setContext(ScenarioContext.ContextKey.Agent,agent);
         scenario.log("Add Driver to Context");
         scenario.log("Start： "+scenario.getName());
+        currentTime=agent.generateTimestamp();
     }
 
     @After
     public void afterScenario(Scenario scenario) {
         //截图
         WebAgentManager.getAndAttachSreenshot(scenario);
-        //清除driver
+/*        //清除driver
         WebAgentManager.quitDriver();
         //清除上下文
-        scenarioContext.clear();
+        scenarioContext.clear();*/
 
     }
 }

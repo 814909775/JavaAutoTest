@@ -1,30 +1,51 @@
 package Agent;
 
 
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
 import org.apache.commons.beanutils.PropertyUtils;
 
+import org.openqa.selenium.WebDriver;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.Map;
 
 public class MyFunctions {
     public MyFunctions() {}
 
 
-    public static String getURL(String webSiteName){
 
+    public static  HashMap<String, Object> loadConfig() {
         Yaml yaml = new Yaml();
         HashMap<String, Object> map = new HashMap<>();
-        String url = "";
         try {
             FileInputStream fis = new FileInputStream(System.getProperty ("user.dir")+"/config/config.yml");
             map = yaml.load(fis);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+        return map;
+
+    }
+    public static Map<String,String> getUserInfo(){
+
+        HashMap<String, Object> map = loadConfig();
+        Map<String, String> userInfoMap = (Map<String, String>) map.get("UserInfo");
+        if (userInfoMap == null) {
+            throw new RuntimeException("YAML中未找到UserInfo节点");
+        }
+        return userInfoMap;
+
+    }
+    public static String getURL(String webSiteName){
+
+        HashMap<String, Object> map = loadConfig();
+        String url = "";
+
         try {
             String environmentName = System.getProperty ("env");
             if (environmentName == null) {
@@ -61,6 +82,26 @@ public class MyFunctions {
 
         return xpath;
 
+    }
+
+    public static Response postRequest(String uri,String path, Map<String,String> header,String body){
+        RestAssured.baseURI = uri;
+
+        return RestAssured.given()
+                .headers(header)
+                .contentType("application/json")
+                .body(body)
+                .when()
+                .post(path)
+                .then()
+                .statusCode(200) // 确保登录成功
+                .extract()
+                .response();
+
+    }
+
+    public static String getResponseField(Response response,String fieldName){
+       return response.jsonPath().getString(fieldName);
     }
 
 

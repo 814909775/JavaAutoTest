@@ -1,6 +1,5 @@
 package Agent;
 
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.Assert;
 import org.openqa.selenium.*;
@@ -21,21 +20,21 @@ import java.util.TimeZone;
 import java.util.regex.Pattern;
 
 import static Agent.MyFunctions.*;
-import static Glue.BaseSteps.currentPage;
+import static Glue.Steps.BaseSteps.currentPage;
 import static Glue.Hook.currentTime;
 
 
-public class Agent {
+public class UIClient {
     private WebDriver driver;
     private final WebDriverWait wait;
     private final Actions actions;
     private final JavascriptExecutor js;
-    private static final Logger logger = LoggerFactory.getLogger(Agent.class);
+    private static final Logger logger = LoggerFactory.getLogger(UIClient.class);
     private static final Pattern XPATH_PATTERN = Pattern.compile(
             "^(/|//)|(@|contains\\(|text\\()",
             Pattern.CASE_INSENSITIVE
     );
-    public Agent(WebDriver driver) {
+    public UIClient(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver, Duration.ofSeconds(4));
         actions = new Actions(driver);
@@ -165,7 +164,8 @@ public class Agent {
 
     public void selectValue(String item, String input) {
 
-        String xpath = "//span[contains(text(),'{item}')]".replace("{item}", item);
+//        String xpath = "//span[contains(text(),'{item}')]".replace("{item}", item);
+        String xpath=getXpath(currentPage,"CommonSelect").replace("{item}", item);
         clickElement(input);
         try {
             clickElement(xpath);
@@ -175,8 +175,11 @@ public class Agent {
         }
     }
     public void inputThenSelectValue(String item, String input) {
+
+        //String xpath="//span[contains(text(),'{item}')]".replace("{item}", item);
+//        String xpath= "//div[not(contains(@style,'display: none'))]/div/div/div/ul/li/span[text()='{item}']".replace("{item}", item);
         getElement(input).sendKeys(item);
-        String xpath="//span[contains(text(),'{item}')]".replace("{item}", item);
+        String xpath=getXpath(currentPage,"CommonInputAndSelect").replace("{item}", item);
         try{
             clickElement(xpath);
         }catch(Exception e){
@@ -210,7 +213,8 @@ public class Agent {
     }
 
     public void typeAccordingToFieldName(String text, String fieldName) {
-        String xpath="//*[(local-name()='input' or local-name()='textarea') and @fieldname ='{item}']".replace("{item}", fieldName);
+//        String xpath="//*[(local-name()='input' or local-name()='textarea') and @fieldname ='{item}']".replace("{item}", fieldName);
+        String xpath=getXpath(currentPage,"CommonInput").replace("{item}", fieldName);
         actions.moveToElement(getElement(xpath)).perform();
         if(text.contains("#{timestamp}")){
             typeDataIntoField( text.replace("#{timestamp}", currentTime) ,xpath);
@@ -307,7 +311,7 @@ public class Agent {
         // 3. 注入Cookie到浏览器
         driver.manage().addCookie(accessTokenCookie);
         driver.navigate().refresh();
-  //      driver.get("https://beta-smartbooking.hgj.com/Dashboard/Workplace");
+        driver.get("https://beta-smartbooking.hgj.com/Dashboard/Workplace");
 
     }
 

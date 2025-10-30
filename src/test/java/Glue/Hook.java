@@ -1,6 +1,6 @@
 package Glue;
 
-import Agent.Agent;
+import Agent.UIClient;
 import Glue.context.ScenarioContext;
 import Glue.context.WebAgentManager;
 import io.cucumber.java.After;
@@ -24,21 +24,21 @@ public class Hook {
     public void beforeScenario(Scenario scenario) throws MalformedURLException {
         WebDriver webDriver = WebAgentManager.getOrCreateDriver();
         webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        Agent agent = new Agent(webDriver);
-        scenarioContext.setContext(ScenarioContext.ContextKey.Agent,agent);
+        UIClient UIClient = new UIClient(webDriver);
+        scenarioContext.setContext(ScenarioContext.ContextKey.Agent, UIClient);
         scenario.log("Add Driver to Context");
         scenario.log("Start： "+scenario.getName());
-        currentTime=agent.generateTimestamp();
+        currentTime= UIClient.generateTimestamp();
     }
 
     @After
     public void afterScenario(Scenario scenario) {
         //截图
         WebAgentManager.getAndAttachSreenshot(scenario);
-/*        //清除driver
+        //清除driver
         WebAgentManager.quitDriver();
         //清除上下文
-        scenarioContext.clear();*/
+        scenarioContext.clear();
 
     }
 }

@@ -1,18 +1,14 @@
-package Glue;
+package Glue.Steps;
 
-import Agent.Agent;
+import Agent.UIClient;
 import Glue.context.GlobalContext;
 import io.cucumber.datatable.DataTable;
-import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 import Glue.context.ScenarioContext;
-import io.restassured.RestAssured;
-import io.restassured.response.Response;
-import org.openqa.selenium.JavascriptExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,99 +17,99 @@ import java.util.Map;
 
 public class BaseSteps {
     private ScenarioContext context;
-    private final Agent agent;
+    private final UIClient UIClient;
     public static String currentPage;
 /*    public static String currentTime;*/
     private static final Logger logger = LoggerFactory.getLogger(BaseSteps.class);
     public BaseSteps(ScenarioContext scenarioContext) {
         this.context = scenarioContext;
-        agent=context.getContext(ScenarioContext.ContextKey.Agent);
+        UIClient =context.getContext(ScenarioContext.ContextKey.Agent);
     }
 
-    @When("Agent opens {string}")
+    @When("UIClient opens {string}")
     public void agentOpenUrl(String url) {
-        agent.open(url);
+        UIClient.open(url);
 /*        currentTime=agent.generateTimestamp();*/
 
     }
 
 
-    @Given("Agent type {string} into {string}")
+    @Given("UIClient type {string} into {string}")
     public void agentTypeInto(String text, String field) {
-        agent.typeDataIntoField(text,field);
+        UIClient.typeDataIntoField(text,field);
 
     }
 
-    @Then("Agent is on {string} page" )
+    @Then("UIClient is on {string} page" )
     public void agentIsOn(String pageName) {
         currentPage=pageName;
-        agent.checkElementExists("trait");
+        UIClient.checkElementExists("trait");
 
 
     }
 
-    @And("Agent clicks {string}")
+    @And("UIClient clicks {string}")
     public void agentClicks(String element) {
-        agent.clickElement(element);
+        UIClient.clickElement(element);
     }
 
-    @When("Agent moves to {string}")
+    @When("UIClient moves to {string}")
     public void agentMovesTo(String element) throws InterruptedException {
-        agent.moveToElement(element);
+        UIClient.moveToElement(element);
 
     }
 
-    @And("Agent clicks {string} via CSS")
+    @And("UIClient clicks {string} via CSS")
     public void agentClicksViaJS(String element) {
-      agent.clickByCSS(element);
+      UIClient.clickByCSS(element);
     }
 
-    @Then("Agent sees {string}")
+    @Then("UIClient sees {string}")
     public void agentSees(String element) {
         if(element.startsWith("@")){
             String text = GlobalContext.getInstance().get(element.replace("@","")).toString();
-            agent.checkElementExists("//div[text()=' {element} ']".replace("{element}",text));
+            UIClient.checkElementExists("//div[text()=' {element} ']".replace("{element}",text));
         }else{
-            agent.checkElementExists(element);
+            UIClient.checkElementExists(element);
         }
 
     }
 
-    @When("Agent selects {string} in {string} input")
+    @When("UIClient selects {string} in {string} input")
     public void agentSelectsInInput(String item, String input)  {
-        agent.selectValue(item, input);
+        UIClient.selectValue(item, input);
 
 
     }
 
-    @When("Agent type {string} then select in {string} input")
+    @When("UIClient type {string} then select in {string} input")
     public void agentTypeThenSelectInInput(String item, String input) {
-        agent.inputThenSelectValue(item, input);
+        UIClient.inputThenSelectValue(item, input);
 
     }
 
 
-    @When("Agent type data into related fields")
+    @When("UIClient type data into related fields")
     public void agentTypeDataIntoRelatedFields(DataTable dataTable) {
         List<Map<String, String>> allRows = dataTable.asMaps();
         for (int i = 0; i < allRows.size(); i++) {
             Map<String, String> row = allRows.get(i);
             String content = row.get("Content");
             String fieldName = row.get("fieldname");
-            agent.typeAccordingToFieldName(content, fieldName);
+            UIClient.typeAccordingToFieldName(content, fieldName);
         }
 
     }
 
 
-    @Then("Agent sees {string} in  {string}")
+    @Then("UIClient sees {string} in  {string}")
     public void agentSeesIn(String text, String element) {
-      agent.checkValueOfElement(text,element);
+      UIClient.checkValueOfElement(text,element);
     }
 
-    @Then("Agent get value from {string} and save to {string}")
+    @Then("UIClient get value from {string} and save to {string}")
     public void agentGetValueFrom(String field,String key) {
-        String delegationNumber = agent.checkValueExist(field);
+        String delegationNumber = UIClient.checkValueExist(field);
         if(key.startsWith("@")){
 
             GlobalContext.getInstance().set(key.replace("@",""),delegationNumber);
@@ -123,10 +119,10 @@ public class BaseSteps {
     }
 
 
-    @Given("Agent login HGJBooking via API")
+    @Given("UIClient login HGJBooking via API")
     public void agentLoginViaAPI() {
         try {
-            agent.apiLogin();
+            UIClient.apiLogin();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

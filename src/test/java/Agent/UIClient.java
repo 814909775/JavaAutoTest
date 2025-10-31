@@ -20,7 +20,7 @@ import java.util.TimeZone;
 import java.util.regex.Pattern;
 
 import static Agent.MyFunctions.*;
-import static Glue.Steps.BaseSteps.currentPage;
+import static Glue.Steps.UiSteps.currentPage;
 import static Glue.Hook.currentTime;
 
 

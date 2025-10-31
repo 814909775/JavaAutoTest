@@ -1,0 +1,17 @@
+{
+  "username": "",
+  "account": "%{account}",
+  "countryCode": "86",
+  "loginType": 1,
+  "registerType": 1,
+  "password": "%{password}",
+  "rememberMe": true,
+  "param": {
+    "openId": "",
+    "unionId": "",
+    "client": ""
+  },
+  "captchaData": {
+
+  }
+}

@@ -15,13 +15,13 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Map;
 
-public class BaseSteps {
+public class UiSteps {
     private ScenarioContext context;
     private final UIClient UIClient;
     public static String currentPage;
 /*    public static String currentTime;*/
-    private static final Logger logger = LoggerFactory.getLogger(BaseSteps.class);
-    public BaseSteps(ScenarioContext scenarioContext) {
+    private static final Logger logger = LoggerFactory.getLogger(UiSteps.class);
+    public UiSteps(ScenarioContext scenarioContext) {
         this.context = scenarioContext;
         UIClient =context.getContext(ScenarioContext.ContextKey.Agent);
     }

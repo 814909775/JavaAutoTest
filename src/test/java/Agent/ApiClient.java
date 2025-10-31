@@ -43,7 +43,50 @@ public class ApiClient {
 
     }
 
-    public Response post(String apiName,String baseUrl, String path, String body) throws Exception {
+
+    public Response sendGetRequest(String baseUrl, String endpoint, String queryParams) {
+        RequestSpecification request = given().spec(requestSpec);
+
+        // 直接添加查询字符串
+        if (queryParams != null && !queryParams.isEmpty()) {
+            request.params(parseQueryString(queryParams));
+        }
+        // 添加请求头
+        for (Map.Entry<String, String> header : headers.entrySet()) {
+            request.header(header.getKey(), header.getValue());
+        }
+        Response response = request.given().baseUri(baseUrl).log().headers().when().get(endpoint);
+        response.prettyPrint();
+        logger.info("Response of {} is {}",endpoint, response.asString());
+        return response;
+    }
+    private Map<String, String> parseQueryString(String queryString) {
+        Map<String, String> params = new HashMap<>();
+        if (queryString != null && !queryString.isEmpty()) {
+            String[] pairs = queryString.split("&");
+            for (String pair : pairs) {
+                String[] keyValue = pair.split("=", 2);
+                if (keyValue.length == 2) {
+                    params.put(keyValue[0], keyValue[1]);
+                } else if (keyValue.length == 1) {
+                    params.put(keyValue[0], "");
+                }
+            }
+        }
+        return params;
+    }
+
+    /**
+     * 发送GET请求（无参数版本）
+     * @param baseUrl 基础URL
+     * @param endpoint 端点路径
+     * @return Response 响应对象
+     */
+    public Response sendGetRequest(String baseUrl, String endpoint) {
+        return sendGetRequest(baseUrl, endpoint, null);
+    }
+
+    public Response sendPostRequest(String apiName,String baseUrl, String path, String body) throws Exception {
         RequestSpecification request = given().spec(requestSpec);
         // 添加请求头
         for (Map.Entry<String, String> header : headers.entrySet()) {
@@ -69,6 +112,15 @@ public class ApiClient {
                 finalBody=processRequestBody(bodyTemplate, parameters);
                 break;
 
+            case "选择企业API":
+                Response lastResponse = (Response)GlobalContext.getInstance().get("lastResponse");
+                logger.info("Last Response: is {} - {}", apiName,lastResponse.asString());
+                parameters.put("enterpriseId",lastResponse.jsonPath().getString("data.enterpriseInfos[0].enterpriseId"));
+                parameters.put("userId",lastResponse.jsonPath().getString("data.userId"));
+                parameters.put("secret",lastResponse.jsonPath().getString("data.secret"));
+                finalBody=processRequestBody(bodyTemplate, parameters);
+                break;
+
         }
         Response response = request
                 .baseUri(baseUrl)
@@ -80,6 +132,10 @@ public class ApiClient {
         GlobalContext.getInstance().set("lastResponse",response);
         logger.info("Response: {}", response.asString());
         System.out.println(response.asString());
+        if(apiName.equals("选择企业API")){
+            System.out.println("Token is "+response.jsonPath().get("data.accessToken").toString());
+            GlobalContext.getInstance().set("Access-Token",response.jsonPath().get("data.accessToken").toString());
+        }
         return response;
 
     }
@@ -137,6 +193,10 @@ public class ApiClient {
             return obj.toString();
         }
     }
+
+
+
+
 
     // 其他HTTP方法 (GET, PUT, DELETE等) 可以类似实现
 }

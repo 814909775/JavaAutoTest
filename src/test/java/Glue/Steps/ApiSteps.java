@@ -8,6 +8,7 @@ import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +39,11 @@ public class ApiSteps {
         for (Map<String, String> header : headers) {
             String headerName = header.get("header-name");
             String headerValue = header.get("header-value");
+            if(headerName.equals("Access-Token")){
+                headerValue=GlobalContext.getInstance().get("Access-Token").toString();
+            }
             // 调用APIClient的方法设置请求头
+            System.out.println(headerName+"--"+headerValue);
             apiClient.setHeader(headerName, headerValue);
 
         }
@@ -59,7 +64,7 @@ public class ApiSteps {
         String baseUri = header.get("BaseUri");
         String path = header.get("Path");
         String body = header.get("Body");
-        apiClient.post(apiName,baseUri,path,body);
+        apiClient.sendPostRequest(apiName,baseUri,path,body);
 
     }
 
@@ -90,6 +95,27 @@ public class ApiSteps {
                     break;
             }
         }
+
+    }
+
+    @When("用户发送GET请求带以下参数")
+    public void 用户发送get请求带以下参数(DataTable dataTable) {
+        List<Map<String, String>> param = dataTable.asMaps(String.class, String.class);
+        // 添加检查确保至少有一个map
+        if (param.isEmpty()) {
+            throw new IllegalArgumentException("DataTable should contain at least one row");
+        }
+        // 获取第一个map
+        Map<String, String> header = param.get(0);
+        String baseUri = header.get("BaseUri");
+        String path = header.get("Path");
+        String body = header.get("Body");
+        if (body==null||body.equals("null")){
+            apiClient.sendGetRequest(baseUri,path);
+        }else{
+            apiClient.sendGetRequest(baseUri,path,body);
+        }
+
 
     }
 }

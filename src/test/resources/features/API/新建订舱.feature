@@ -1,6 +1,6 @@
 @testapi
 Feature: 新建订舱
-  Scenario: sdfsdf
+  Scenario: 登录API
     Given APIClient设置请求头
         | header-name  | header-value     |
         | app-name     | whale_common_pc  |
@@ -17,6 +17,24 @@ Feature: 新建订舱
       | 字段值等于 | code=200 |
       | 字段类型为 | code=Integer |
     #选择企业
-#    And APIClient发起选择企业APIPOST请求
-#      | BaseUri                     | Path                                         | Body |
-#      | https://beta-apisix.hgj.com | /whale-user-center/pass/login/password-login |  {"userId": "%s","enterpriseId": "%s","secret": "%s"}    |
+    And APIClient发起选择企业APIPOST请求
+      | BaseUri                     | Path                                         | Body |
+      | https://beta-apisix.hgj.com | /whale-user-center/pass/login/choose-enterprise|  {"userId": "%{userId}","enterpriseId": "%{enterpriseId}","secret": "%{secret}"}    |
+    Then APIClient校验选择企业API响应结果
+      | 验证项 | 期望值 |
+      | 状态码 | 200 |
+      | 字段值等于 | code=200 |
+      | 返回字段含 | accessToken |
+    Given APIClient设置请求头
+      | header-name  | header-value     |
+      | Access-Token  | %{Access-Token}   |
+    When 用户发送GET请求带以下参数
+      | BaseUri                     | Path                                                 | Body |
+      | https://beta-apisix.hgj.com | /booking-open-order/access/order/productDelegationNo | null      |
+    Then APIClient校验获取委托编号响应结果
+      | 验证项   | 期望值  |
+      | 状态码   | 200  |
+      | 返回字段含 | data |
+#    When 用户发送GET请求到 "/api/users" 带以下参数:
+#      | page | 1 |
+#      | size | 10 |

@@ -51,7 +51,7 @@ public class ApiSteps {
 
 
     @And("^APIClient发起(.+)POST请求$")
-    public void apiclient发起用户登录api的post请求(String apiName,DataTable dataTable ) throws Exception {
+    public void apiclientpost请求(String apiName,DataTable dataTable ) throws Exception {
         //logger.info("APIClient发起{}API的POST请求",apiName);
         List<Map<String, String>> param = dataTable.asMaps(String.class, String.class);
 

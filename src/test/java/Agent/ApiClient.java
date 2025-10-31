@@ -58,6 +58,7 @@ public class ApiClient {
         Response response = request.given().baseUri(baseUrl).log().headers().when().get(endpoint);
         response.prettyPrint();
         logger.info("Response of {} is {}",endpoint, response.asString());
+        GlobalContext.getInstance().set("lastResponse",response);
         return response;
     }
     private Map<String, String> parseQueryString(String queryString) {
@@ -97,6 +98,7 @@ public class ApiClient {
        String bodyTemplate= processBody(body);
         Map<String, Object> parameters = new HashMap<>();
         String finalBody ="";
+        Response lastResponse = (Response)GlobalContext.getInstance().get("lastResponse");
         switch (apiName){
             case "用户登录API":
                 //获取配置的用户
@@ -113,7 +115,6 @@ public class ApiClient {
                 break;
 
             case "选择企业API":
-                Response lastResponse = (Response)GlobalContext.getInstance().get("lastResponse");
                 logger.info("Last Response: is {} - {}", apiName,lastResponse.asString());
                 parameters.put("enterpriseId",lastResponse.jsonPath().getString("data.enterpriseInfos[0].enterpriseId"));
                 parameters.put("userId",lastResponse.jsonPath().getString("data.userId"));
@@ -121,6 +122,12 @@ public class ApiClient {
                 finalBody=processRequestBody(bodyTemplate, parameters);
                 break;
 
+            case "新建订舱":
+                logger.info("Last Response: is {} - {}", apiName,lastResponse.asString());
+                parameters.put("delegationNumber",lastResponse.jsonPath().getString("data"));
+                parameters.put("delegationNumber2",lastResponse.jsonPath().getString("data"));
+                finalBody=processRequestBody(bodyTemplate, parameters);
+                break;
         }
         Response response = request
                 .baseUri(baseUrl)

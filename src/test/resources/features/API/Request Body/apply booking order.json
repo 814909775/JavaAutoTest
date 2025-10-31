@@ -65,7 +65,7 @@
 "addressHtml": "AMERICA NEWYORK251028-3538"
 },
 "bookingBaseInfoBean": {
-"delegationNo": "%{delegationNumber}",
+"delegationNo": "%{delegationNumber2}",
 "shippingCompanyCode": "OOCL",
 "nameAccount": null,
 "signingMethod": "SWB",

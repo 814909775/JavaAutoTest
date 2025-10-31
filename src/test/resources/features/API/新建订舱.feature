@@ -1,6 +1,6 @@
 @testapi
 Feature: 新建订舱
-  Scenario: 登录API
+  Background:
     Given APIClient设置请求头
         | header-name  | header-value     |
         | app-name     | whale_common_pc  |
@@ -28,10 +28,19 @@ Feature: 新建订舱
     Given APIClient设置请求头
       | header-name  | header-value     |
       | Access-Token  | %{Access-Token}   |
+
+  Scenario: 新建订舱API测试-Positive
     When 用户发送GET请求带以下参数
       | BaseUri                     | Path                                                 | Body |
       | https://beta-apisix.hgj.com | /booking-open-order/access/order/productDelegationNo | null      |
     Then APIClient校验获取委托编号响应结果
+      | 验证项   | 期望值  |
+      | 状态码   | 200  |
+      | 返回字段含 | data |
+    And APIClient发起新建订舱POST请求
+      | BaseUri                     | Path                                                | Body                     |
+      | https://beta-apisix.hgj.com | /booking-open-order/access/order/bookingOrderHandle | apply booking order.json|
+    Then APIClient校验新建订舱响应结果
       | 验证项   | 期望值  |
       | 状态码   | 200  |
       | 返回字段含 | data |

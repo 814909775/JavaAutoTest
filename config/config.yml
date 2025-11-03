@@ -16,6 +16,14 @@ URL:
     HGJBooking: https://dev-login.hgj.com/login/mail
 
 
+EmailReport:
+  host: smtp.163.com
+  port: 25
+  from: "cbusol814@163.com"
+  password: "MYUAbcbeD3GKFCfT"
+  to: "curtis.yang@yunlsp.com"
+  attachment: target/cucumber-reports.html
+
 UserInfo:
   UserName: Cbusol814@163.com
   Password: Q13817759419Q

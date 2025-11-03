@@ -13,10 +13,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static Agent.MyFunctions.getUserInfo;
 import static io.restassured.RestAssured.given;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ApiClient {
     private final RequestSpecification requestSpec;
@@ -194,6 +197,30 @@ public class ApiClient {
             return mapper.writeValueAsString(obj);
         } catch (Exception e) {
             return obj.toString();
+        }
+    }
+
+    public void validateResponse(List<Map<String, String>> validationRules, Response lastResponse){
+        for (Map<String, String> rule : validationRules) {
+            String validationType = rule.get("验证项");
+            String expectedValue = rule.get("期望值");
+
+            switch (validationType) {
+                case "状态码":
+                    int expectedStatusCode = Integer.parseInt(expectedValue);
+                    assertEquals(expectedStatusCode, lastResponse.getStatusCode());
+                    break;
+                case "返回字段含":
+                    // 验证响应中包含指定字段
+                    assertTrue("实际"+lastResponse.getBody().asString(), lastResponse.getBody().asString().contains(expectedValue));
+                    break;
+                case "字段值等于":
+                    // 直接从响应中提取字段值进行比较
+                    String actualValue = lastResponse.jsonPath().getString(expectedValue.split("=")[0]);
+                    String expectedValueStr = expectedValue.split("=")[1];
+                    assertEquals("期望是 "+expectedValueStr+"实际是 "+actualValue,expectedValueStr, actualValue);
+                    break;
+            }
         }
     }
 

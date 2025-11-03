@@ -124,7 +124,7 @@ public class EmailUtils {
                 .append("，失败 ").append(failedCount).append("</p>");
 
         // 场景结果表格
-        tableBuilder.append("<h3>概览</h3>");
+        tableBuilder.append("<p><strong>概览</strong>");
         tableBuilder.append("<table border='1' style='border-collapse: collapse; width: 100%;'>");
         tableBuilder.append("<tr style='background-color: #f2f2f2;'><th>场景名称</th><th>执行结果</th></tr>");
 

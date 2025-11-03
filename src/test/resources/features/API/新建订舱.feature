@@ -39,7 +39,7 @@ Feature: 新建订舱 API Auto
       | 返回字段含 | data |
     And APIClient发起新建订舱POST请求
       | BaseUri                     | Path                                                | Body                     |
-      | https://beta-apisix.hgj.com | /booking-open-order/access/order/bookingOrderHandle | apply booking order.json|
+      | https://beta-apisix.hgj.com | /booking-open-order/access/order/bookingOrderHandle | OOCL-positive.json|
     Then APIClient校验新建订舱响应结果
       | 验证项   | 期望值  |
       | 状态码   | 200  |

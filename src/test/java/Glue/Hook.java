@@ -1,9 +1,11 @@
 package Glue;
 
 import Agent.UIClient;
+import Glue.context.GlobalContext;
 import Glue.context.ScenarioContext;
 import Glue.context.WebAgentManager;
 import io.cucumber.java.After;
+import io.cucumber.java.AfterAll;
 import io.cucumber.java.Before;
 
 import io.cucumber.java.Scenario;
@@ -40,5 +42,9 @@ public class Hook {
         //清除上下文
         scenarioContext.clear();
 
+    }
+    @AfterAll
+    public static void afterAll() {
+        GlobalContext.getInstance().clear();
     }
 }

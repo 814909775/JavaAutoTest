@@ -1,7 +1,6 @@
 package Glue.Steps;
 
 import Agent.ApiClient;
-import Agent.UIClient;
 import Glue.context.GlobalContext;
 import Glue.context.ScenarioContext;
 import io.cucumber.datatable.DataTable;
@@ -20,12 +19,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class ApiSteps {
-    private ScenarioContext context;
-    private ApiClient apiClient;
+/*    private ScenarioContext context;*/
+    private final ApiClient apiClient;
     private Response response;
     private static final Logger logger = LoggerFactory.getLogger(ApiSteps.class);
     public ApiSteps(ScenarioContext scenarioContext) {
-        this.context = scenarioContext;
+/*        this.context = scenarioContext;*/
         this.apiClient = new ApiClient();
     }
 

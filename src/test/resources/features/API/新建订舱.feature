@@ -1,5 +1,5 @@
 @testapi
-Feature: 新建订舱
+Feature: 新建订舱 API Auto
   Background:
     Given APIClient设置请求头
         | header-name  | header-value     |

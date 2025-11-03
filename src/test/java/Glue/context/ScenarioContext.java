@@ -32,11 +32,7 @@ public class ScenarioContext {
 
     // 使用枚举定义上下文键，提高类型安全性
     public enum ContextKey {
-        Agent,
-        USER_TOKEN,
-        CURRENT_PRODUCT,
-        CART_ITEMS,
-        DelegationNumber
+        Agent
     }
 
 

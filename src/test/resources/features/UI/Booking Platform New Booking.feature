@@ -1,5 +1,5 @@
 
-Feature: 订舱平台 - 新建订舱数据
+Feature: 订舱平台UI Auto - 新建订舱数据
   Background:
   # 登录步骤之后，可以封装成一步，或者直接保存设置chrome arguments保存user data
 #    Given UIClient opens "HGJBooking"

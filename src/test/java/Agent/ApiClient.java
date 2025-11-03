@@ -1,6 +1,5 @@
 package Agent;
 
-import Glue.Steps.UiSteps;
 import Glue.context.GlobalContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.builder.RequestSpecBuilder;
@@ -20,8 +19,8 @@ import static Agent.MyFunctions.getUserInfo;
 import static io.restassured.RestAssured.given;
 
 public class ApiClient {
-    private RequestSpecification requestSpec;
-    private Map<String, String> headers;
+    private final RequestSpecification requestSpec;
+    private final Map<String, String> headers;
     private static final Logger logger = LoggerFactory.getLogger(ApiClient.class);
 
     public ApiClient() {
@@ -37,11 +36,9 @@ public class ApiClient {
         this.headers.put(name, value);
     }
 
-    public void setHeaders(Map<String, String> headers) {
+/*    public void setHeaders(Map<String, String> headers) {
         this.headers.putAll(headers);
-
-
-    }
+    }*/
 
 
     public Response sendGetRequest(String baseUrl, String endpoint, String queryParams) {
@@ -79,15 +76,15 @@ public class ApiClient {
 
     /**
      * 发送GET请求（无参数版本）
-     * @param baseUrl 基础URL
+     *
+     * @param baseUrl  基础URL
      * @param endpoint 端点路径
-     * @return Response 响应对象
      */
-    public Response sendGetRequest(String baseUrl, String endpoint) {
-        return sendGetRequest(baseUrl, endpoint, null);
+    public void sendGetRequest(String baseUrl, String endpoint) {
+        sendGetRequest(baseUrl, endpoint, null);
     }
 
-    public Response sendPostRequest(String apiName,String baseUrl, String path, String body) throws Exception {
+    public void sendPostRequest(String apiName, String baseUrl, String path, String body) throws Exception {
         RequestSpecification request = given().spec(requestSpec);
         // 添加请求头
         for (Map.Entry<String, String> header : headers.entrySet()) {
@@ -143,7 +140,6 @@ public class ApiClient {
             System.out.println("Token is "+response.jsonPath().get("data.accessToken").toString());
             GlobalContext.getInstance().set("Access-Token",response.jsonPath().get("data.accessToken").toString());
         }
-        return response;
 
     }
     private String processBody(String body) {

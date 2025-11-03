@@ -17,6 +17,7 @@ URL:
 
 
 EmailReport:
+  enableEmail: true
   host: smtp.163.com
   port: 25
   from: "cbusol814@163.com"
@@ -24,6 +25,7 @@ EmailReport:
   to: "curtis.yang@yunlsp.com"
   attachment: target/cucumber-reports.html
 
+#海管家登录账户，默认公司选择第一个
 UserInfo:
   UserName: Cbusol814@163.com
   Password: Q13817759419Q

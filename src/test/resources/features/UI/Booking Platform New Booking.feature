@@ -2,7 +2,7 @@
 Feature: 订舱平台UI Auto - 新建订舱数据
   Background:
   # 登录步骤之后，可以封装成一步，或者直接保存设置chrome arguments保存user data
-#    Given UIClient opens "HGJBooking"
+#    Given UIClient opens "HGJBooking-Email"
 #    Then UIClient is on "HGJ Login" page
 #    Given UIClient type "Cbusol814@163.com" into "Mailbox"
 #    And UIClient type "Q13817759419Q" into "Password"
@@ -10,6 +10,7 @@ Feature: 订舱平台UI Auto - 新建订舱数据
 #    Then UIClient is on "HGJ Company" page
 #    And UIClient clicks "MainCompany"
 #    Then UIClient is on "User Center" page
+#    When UIClient clicks "订舱平台"
     Given UIClient login HGJBooking via API
     Then UIClient is on "订舱主页面" page
 
@@ -84,12 +85,12 @@ Feature: 订舱平台UI Auto - 新建订舱数据
     And UIClient sees "@最新委托编号"
 
   Examples:
-    | 港口 | 船司    | 付款方式               | 运输条款      | 签单方式             | 包装单位 |
-    | 上海 | MSK   | Freight Prepaid-预付 | CY-CY     | SWB-Seaways Bill | BG   |
-    | 上海 | CMA   | Freight Collect-到付 | DOOR-DOOR | OBL-正本提单         | JR   |
-    | 上海 | HPL   | Freight Collect-到付 | CY-RAMP   | OBL-正本提单         | 大口瓶  |
-    | 上海 | OOCL  | Freight Prepaid-预付 | CY-CY     | SWB-Seaways Bill | VA   |
-    | 上海 | COSCO | Freight Prepaid-预付 | CY-CY     | SWB-Seaways Bill | 桶    |
+    | 港口 | 船司  | 付款方式               | 运输条款      | 签单方式             | 包装单位 |
+    | 上海 | MSK | Freight Prepaid-预付 | CY-CY     | SWB-Seaways Bill | BG   |
+    | 上海 | CMA | Freight Collect-到付 | DOOR-DOOR | OBL-正本提单         | JR   |
+  #  | 上海 | HPL | Freight Collect-到付 | CY-RAMP   | OBL-正本提单         | 大口瓶  |
+  #  | 上海 | OOCL | Freight Prepaid-预付 | CY-CY     | SWB-Seaways Bill | VA   |
+  #  | 上海 | COSCO | Freight Prepaid-预付 | CY-CY     | SWB-Seaways Bill | 桶    |
 
   Scenario Outline: <港口> + <船司> + 普通货物 - 无HBL
 #    Given UIClient clicks "订舱平台"

@@ -310,9 +310,8 @@ public class UIClient {
                 .build();
         // 3. 注入Cookie到浏览器
         driver.manage().addCookie(accessTokenCookie);
-        driver.navigate().refresh();
         driver.get("https://beta-smartbooking.hgj.com/Dashboard/Workplace");
-
+        driver.navigate().refresh();
     }
 
     public void apiLogin() throws Exception {

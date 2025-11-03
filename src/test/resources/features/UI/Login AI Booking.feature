@@ -1,7 +1,8 @@
+@test
 Feature: Login AI Booking
   Background:
   # 登录步骤之后，可以封装成一步，或者直接保存设置chrome arguments保存user data
-    Given UIClient opens "HGJBooking"
+    Given UIClient opens "HGJBooking-Email"
     Then UIClient is on "HGJ Login" page
     Given UIClient type "Cbusol814@163.com" into "Mailbox"
     And UIClient type "Q13817759419Q" into "Password"

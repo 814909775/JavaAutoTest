@@ -2,6 +2,7 @@ package Glue.context;
 
 import io.cucumber.java.Scenario;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -14,10 +15,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.Yaml;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.*;
 
 
@@ -28,7 +31,7 @@ public class WebAgentManager {
     private static String env;
 
 
-    private static Map<Object, Object> getConfig() {
+    public static Map<Object, Object> getConfig() {
         String configPath = System.getProperty("user.dir") + "/config/config.yml";
 
         //logger.info("Reading config file: {}", configPath);
@@ -62,7 +65,7 @@ public class WebAgentManager {
         Boolean remote = (Boolean) agentConfig.get(ConfigKey.Remote.toString());
         String remoteUrl = (String) agentConfig.get(ConfigKey.RemoteUrl.toString());
         String driverpath = (String) agentConfig.get(ConfigKey.Path.toString());
-        Boolean headless =(Boolean) agentConfig.get(ConfigKey.Headless.toString());
+        Boolean headless = (Boolean) agentConfig.get(ConfigKey.Headless.toString());
         List<String> options = Arrays.asList("--disable-gpu","--disable-extensions","--disable-dev-shm-usage","--start-maximized");
 
         if(drivers.get()==null) {
@@ -147,11 +150,15 @@ public class WebAgentManager {
 
 
 
-    public static void getAndAttachSreenshot(Scenario scenario) {
+    public static void getAndAttachSreenshot(Scenario scenario) throws IOException {
         if (scenario.isFailed()&&drivers.get()!=null) {
             scenario.log("Scenario is Failed");
-            byte[] screenshot = ((TakesScreenshot)drivers.get()).getScreenshotAs(OutputType.BYTES);
-            scenario.attach(screenshot, "image/png", scenario.getName()+UUID.randomUUID().toString());
+            //byte[] screenshot = ((TakesScreenshot)drivers.get()).getScreenshotAs(OutputType.BYTES);
+            File screenshot = ((TakesScreenshot)drivers.get()).getScreenshotAs(OutputType.FILE);
+            FileUtils.copyFile(screenshot, new File("./screenshots/"+scenario.getName()+"-" + UUID.randomUUID() + ".png"));
+            byte[] screenshotBytes = Files.readAllBytes(screenshot.toPath());
+
+            scenario.attach(screenshotBytes, "image/png", scenario.getName()+UUID.randomUUID().toString());
         }
     }
 

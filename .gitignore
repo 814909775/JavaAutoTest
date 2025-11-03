@@ -20,3 +20,6 @@ temp/
 
 # 忽略target目录及其所有内容
 target/
+
+# 忽略本地开发配置文件（含敏感信息）
+config.yml

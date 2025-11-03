@@ -1,0 +1,36 @@
+Agent:
+  Browser: chrome
+  WebDriverManager: false
+  Remote: false
+  RemoteUrl: ""
+  Path: ./drivers/chromedriver.exe
+  Headless: false
+  Environment: uat
+
+URL:
+  Beta:
+    CBusOL:
+    HGJBooking-Email:
+    HGJBooking-Phone:
+  Dev:
+    HGJBooking:
+
+
+EmailReport:
+  enableEmail: true
+  host: smtp.163.com
+  port: 25
+  from: # 发件人
+  password: # 密码
+  to: # 收件人
+  attachment: target/cucumber-reports.html
+
+#海管家登录账户，默认公司选择第一个
+UserInfo:
+  UserName:
+  Password:
+#Agent:
+#  browser: edge
+#  driver: ./drivers/msedgedriver.exe
+#  headless: true
+#  maximum: true

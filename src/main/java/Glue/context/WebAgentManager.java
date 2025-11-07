@@ -158,7 +158,7 @@ public class WebAgentManager {
             FileUtils.copyFile(screenshot, new File("./screenshots/"+scenario.getName()+"-" + UUID.randomUUID() + ".png"));
             byte[] screenshotBytes = Files.readAllBytes(screenshot.toPath());
 
-            scenario.attach(screenshotBytes, "image/png", scenario.getName()+UUID.randomUUID().toString());
+            scenario.attach(screenshotBytes, "image/png", UUID.randomUUID().toString());
         }
     }
 

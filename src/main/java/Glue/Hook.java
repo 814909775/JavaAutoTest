@@ -1,7 +1,6 @@
 package Glue;
 
-import Agent.EmailUtils;
-import Agent.UIClient;
+import com.hgjAgent.UIClient;
 import Glue.context.GlobalContext;
 import Glue.context.ScenarioContext;
 import Glue.context.WebAgentManager;
@@ -12,14 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import static Agent.EmailUtils.getEmailInfo;
 
 public class Hook {
 

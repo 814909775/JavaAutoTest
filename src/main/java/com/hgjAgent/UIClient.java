@@ -1,4 +1,4 @@
-package Agent;
+package com.hgjAgent;
 
 import io.restassured.response.Response;
 import org.junit.Assert;
@@ -13,13 +13,10 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TimeZone;
+import java.util.*;
 import java.util.regex.Pattern;
 
-import static Agent.MyFunctions.*;
+import static com.hgjAgent.MyFunctions.*;
 import static Glue.Steps.UiSteps.currentPage;
 import static Glue.Hook.currentTime;
 
@@ -67,16 +64,30 @@ public class UIClient {
     }
 
     public WebElement getElementByXpath(String xpath){
-
         if(isXPath(xpath)){
-            return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+
+                WebElement firstVisibleElement = wait.until(driver -> {
+                    List<WebElement> elements = driver.findElements(By.xpath(xpath));
+
+                    for (WebElement element : elements) {
+                        if (element.isDisplayed()) {
+                            return element;  // 返回第一个可见的元素
+                        }
+                    }
+                    return null;  // 如果没有可见元素，返回null
+                });
+
+            return wait.until(ExpectedConditions.visibilityOf(firstVisibleElement));
+
 
         }
         else {
 
             return wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(xpath)));
-        }
+            }
+
     }
+
 
 
 
@@ -180,28 +191,16 @@ public class UIClient {
 //        String xpath= "//div[not(contains(@style,'display: none'))]/div/div/div/ul/li/span[text()='{item}']".replace("{item}", item);
         getElement(input).sendKeys(item);
         String xpath=getXpath(currentPage,"CommonInputAndSelect").replace("{item}", item);
+
         try{
+            System.out.println(xpath);
             clickElement(xpath);
         }catch(Exception e){
-            selectFirstItemByKeyboard();
+          //  selectFirstItemByKeyboard();
+            throw e;
         }
 
 
-/*   调试元素代码
-    getElement(input).click();
-        String xpath = "//span[contains(text(),'{item}')]/parent::li".replace("{item}", item);
-        WebElement target = driver.findElement(By.xpath(xpath));
-        ((JavascriptExecutor) driver).executeScript("""
-    var el = arguments[0];
-    console.log("=== 元素状态排查 ===");
-    console.log("1. 元素是否存在：", el !== null);
-    console.log("2. CSS可见性：", el.style.display, el.style.visibility, el.style.opacity);
-    console.log("3. 计算后样式：", window.getComputedStyle(el).display, window.getComputedStyle(el).visibility);
-    console.log("4. 尺寸/位置：", el.getBoundingClientRect()); // 宽高、坐标
-    console.log("5. 交互权限：", el.disabled, el.style.pointerEvents); // 是否禁用、是否拦截点击
-    console.log("6. 父元素状态：", el.parentElement.style.pointerEvents); // 父元素是否拦截点击
-""", target);
-        target.click();*/
     }
 
     public void selectFirstItemByKeyboard() {

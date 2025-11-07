@@ -5,14 +5,14 @@ HGJ Login:
   Login: //span[text()="登录"]
   CommonInput: //*[(local-name()='input' or local-name()='textarea') and @fieldname ='{item}']
   CommonSelect: //span[contains(text(),'{item}')]
-  CommonInputAndSelect: //div[not(contains(@style,'display:none'))]/div/div/div/ul/li/span[text()='{item}']
+  CommonInputAndSelect: //div[not(contains(@style,'display:none'))]/div/div/div/ul/li/span[contains(text(),'{item}')]
 
 HGJ Company:
   trait: //h3[text()="选择登录身份"]
   MainCompany: //div[text()="海管家订舱平台（演示）"]
   CommonInput: //*[(local-name()='input' or local-name()='textarea') and @fieldname ='{item}']
   CommonSelect: //span[contains(text(),'{item}')]
-  CommonInputAndSelect: //div[not(contains(@style,'display:none'))]/div/div/div/ul/li/span[text()='{item}']
+  CommonInputAndSelect: //div[not(contains(@style,'display:none'))]/div/div/div/ul/li/span[contains(text(),'{item}')]
 
 User Center:
   trait: //div[text()="用户中心"]
@@ -21,7 +21,7 @@ User Center:
   AIBooking_Link: //div[text()="智能订舱"]
   CommonInput: //*[(local-name()='input' or local-name()='textarea') and @fieldname ='{item}']
   CommonSelect: //span[contains(text(),'{item}')]
-  CommonInputAndSelect: //div[not(contains(@style,'display:none'))]/div/div/div/ul/li/span[text()='{item}']
+  CommonInputAndSelect: //div[not(contains(@style,'display:none'))]/div/div/div/ul/li/span[contains(text(),'{item}')]
 
 
 订舱主页面:
@@ -35,7 +35,7 @@ User Center:
   确定: //span[text()="确定"]
   CommonInput: //*[(local-name()='input' or local-name()='textarea') and @fieldname ='{item}']
   CommonSelect: //span[contains(text(),'{item}')]
-  CommonInputAndSelect: //div[not(contains(@style,'display:none'))]/div/div/div/ul/li/span[text()='{item}']
+  CommonInputAndSelect: //div[not(contains(@style,'display:none'))]/div/div/div/ul/li/span[contains(text(),'{item}')]
 
 订舱表单:
   trait: //span[text()=" 提交订舱 "]
@@ -63,7 +63,7 @@ User Center:
   保存: //span[text()="保存"]
   CommonInput: //*[(local-name()='input' or local-name()='textarea') and @fieldname ='{item}']
   CommonSelect: //span[contains(text(),'{item}')]
-  CommonInputAndSelect: //div[not(contains(@style,'display:none'))]/div/div/div/ul/li/span[text()='{item}']
+  CommonInputAndSelect: //div[not(contains(@style,'display:none'))]/div/div/div/ul/li/span[contains(text(),'{item}')]
 
 
 #  Shipper Name: //input[@fieldname="shipperName"]
@@ -75,7 +75,7 @@ User Center:
   trait: //span[text()="删除"]
   CommonInput: //*[(local-name()='input' or local-name()='textarea') and @fieldname ='{item}']
   CommonSelect: //span[contains(text(),'{item}')]
-  CommonInputAndSelect: //div[not(contains(@style,'display:none'))]/div/div/div/ul/li/span[text()='{item}']
+  CommonInputAndSelect: //div[not(contains(@style,'display:none'))]/div/div/div/ul/li/span[contains(text(),'{item}')]
 
 
 AIBooking Dashboard:
@@ -93,6 +93,6 @@ AI Sheet:
   Generate Delegate Number: //span[text()="自动生成"]
   CommonInput: //*[(local-name()='input' or local-name()='textarea') and @fieldname ='{item}']
   CommonSelect: //span[contains(text(),'{item}')]
-  CommonInputAndSelect: //div[not(contains(@style,'display:none'))]/div/div/div/ul/li/span[text()='{item}']
+  CommonInputAndSelect: //div[not(contains(@style,'display:none'))]/div/div/div/ul/li/span[contains(text(),'{item}')]
 
 

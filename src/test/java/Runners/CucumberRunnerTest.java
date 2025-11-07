@@ -1,6 +1,6 @@
 package Runners;
 
-import Agent.EmailUtils;
+import com.hgjAgent.EmailUtils;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import org.junit.AfterClass;
@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-import static Agent.EmailUtils.getEmailInfo;
+import static com.hgjAgent.EmailUtils.getEmailInfo;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(

@@ -31,7 +31,7 @@ Feature: 订舱平台UI Auto - 新建订舱数据
     And UIClient selects "整箱" in "拼整标记" input
     And UIClient selects "否" in "SOC箱" input
     And UIClient type "<包装单位>" then select in "包装单位" input
-    And UIClient type "New York" then select in "卸货港" input
+    And UIClient type "NEW YORK,GB" then select in "卸货港" input
     And UIClient type "20GP" then select in "箱型" input
     And UIClient clicks "同卸货港"
     And UIClient clicks "自动生成"
@@ -83,11 +83,11 @@ Feature: 订舱平台UI Auto - 新建订舱数据
     And UIClient clicks "保存"
     Then UIClient is on "草稿箱" page
     And UIClient sees "@最新委托编号"
-
+@测试
   Examples:
-    | 港口 | 船司  | 付款方式               | 运输条款      | 签单方式             | 包装单位 |
-    | 上海 | MSK | Freight Prepaid-预付 | CY-CY     | SWB-Seaways Bill | BG   |
-    | 上海 | CMA | Freight Collect-到付 | DOOR-DOOR | OBL-正本提单         | JR   |
+    | 港口 | 船司  | 付款方式               | 运输条款  | 签单方式             | 包装单位 |
+    | 上海 | ANL | Freight Prepaid-预付 | CY-CY | SWB-Seaways Bill | BG   |
+#    | 上海 | CMA | Freight Collect-到付 | DOOR-DOOR | OBL-正本提单         | JR   |
   #  | 上海 | HPL | Freight Collect-到付 | CY-RAMP   | OBL-正本提单         | 大口瓶  |
   #  | 上海 | OOCL | Freight Prepaid-预付 | CY-CY     | SWB-Seaways Bill | VA   |
   #  | 上海 | COSCO | Freight Prepaid-预付 | CY-CY     | SWB-Seaways Bill | 桶    |

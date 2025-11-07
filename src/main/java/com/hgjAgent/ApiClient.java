@@ -1,4 +1,4 @@
-package Agent;
+package com.hgjAgent;
 
 import Glue.context.GlobalContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static Agent.MyFunctions.getUserInfo;
+import static com.hgjAgent.MyFunctions.getUserInfo;
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -39,9 +39,6 @@ public class ApiClient {
         this.headers.put(name, value);
     }
 
-/*    public void setHeaders(Map<String, String> headers) {
-        this.headers.putAll(headers);
-    }*/
 
 
     public Response sendGetRequest(String baseUrl, String endpoint, String queryParams) {
@@ -99,17 +96,20 @@ public class ApiClient {
         Map<String, Object> parameters = new HashMap<>();
         String finalBody ="";
         Response lastResponse = (Response)GlobalContext.getInstance().get("lastResponse");
-        logger.info("Last Response: is {} - {}", apiName,lastResponse.asString());
+        if(lastResponse!=null){
+            logger.info("Last Response: is {} - {}", apiName,lastResponse.asString());
+        }
+
         switch (apiName){
             case "用户登录API":
                 //获取配置的用户
                 String userName = getUserInfo().get("UserName");
-                logger.info("Username is "+userName);
+                logger.info("Username is {}", userName);
                 String password = getUserInfo().get("Password");
-                logger.info("Password is "+password);
+                logger.info("Password is {}", password);
                 //加密密码
                 String encryptedPassword = Encrypt.encryptWithPublicKey(password);
-                logger.info("Encrypted Password is "+encryptedPassword);
+                logger.info("Encrypted Password is {}", encryptedPassword);
                 parameters.put("account",userName);
                 parameters.put("password",encryptedPassword);
                 finalBody=processRequestBody(bodyTemplate, parameters);

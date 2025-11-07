@@ -46,7 +46,7 @@
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-picocontainer</artifactId>
             <version>${cucumber.version}</version>
-            <scope>test</scope>
+<!--            <scope>test</scope>-->
         </dependency>
 
         <!-- JUnit 4 -->
@@ -54,7 +54,7 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
-            <scope>test</scope>
+<!--            <scope>test</scope>-->
         </dependency>
 
         <!-- Cucumber + JUnit 集成 -->
@@ -62,7 +62,7 @@
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit</artifactId>
             <version>${cucumber.version}</version>
-            <scope>test</scope>
+<!--            <scope>test</scope>-->
         </dependency>
 
         <!-- Cucumber 报告 -->
@@ -149,7 +149,7 @@
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <version>5.3.0</version> <!-- 替换为最新稳定版 -->
-            <scope>test</scope> <!-- 仅在测试代码中使用 -->
+<!--            <scope>test</scope> &lt;!&ndash; 仅在测试代码中使用 &ndash;&gt;-->
         </dependency>
 
         <!-- 可选：JSON Path 解析（处理响应中的JSON数据） -->

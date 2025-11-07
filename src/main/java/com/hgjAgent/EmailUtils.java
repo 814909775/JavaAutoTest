@@ -1,4 +1,4 @@
-package Agent;
+package com.hgjAgent;
 
 import io.cucumber.java.Scenario;
 import org.apache.commons.beanutils.PropertyUtils;
@@ -15,10 +15,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import static Agent.MyFunctions.loadConfig;
+import static com.hgjAgent.MyFunctions.loadConfig;
 import static Glue.Hook.currentTime;
 import static Glue.Hook.scenarioResults;
-import static net.masterthought.cucumber.ReportResult.getCurrentTime;
 
 public class EmailUtils {
     @SuppressWarnings("unchecked")

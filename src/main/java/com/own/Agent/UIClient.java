@@ -1,4 +1,4 @@
-package com.hgjAgent;
+package com.own.Agent;
 
 import io.restassured.response.Response;
 import org.junit.Assert;
@@ -16,9 +16,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Pattern;
 
-import static com.hgjAgent.MyFunctions.*;
-import static Glue.Steps.UiSteps.currentPage;
-import static Glue.Hook.currentTime;
+import static com.own.Agent.MyFunctions.*;
+import static com.own.Glue.Steps.UiSteps.currentPage;
+import static com.own.Glue.Steps.Hook.currentTime;
 
 
 public class UIClient {
@@ -66,7 +66,7 @@ public class UIClient {
     public WebElement getElementByXpath(String xpath){
         if(isXPath(xpath)){
 
-                WebElement firstVisibleElement = wait.until(driver -> {
+             /*   WebElement firstVisibleElement = wait.until(driver -> {
                     List<WebElement> elements = driver.findElements(By.xpath(xpath));
 
                     for (WebElement element : elements) {
@@ -77,7 +77,8 @@ public class UIClient {
                     return null;  // 如果没有可见元素，返回null
                 });
 
-            return wait.until(ExpectedConditions.visibilityOf(firstVisibleElement));
+            return wait.until(ExpectedConditions.visibilityOf(firstVisibleElement));*/
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
 
 
         }
@@ -252,7 +253,7 @@ public class UIClient {
                     "username": "",
                     "account": "%s",
                     "countryCode": "86",
-                    "loginType": 1,
+                    "loginType": 0,
                     "registerType": 1,
                     "password":"%s",
                     "rememberMe": true,

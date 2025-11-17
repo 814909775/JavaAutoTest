@@ -1,9 +1,9 @@
-package Glue;
+package com.own.Glue.Steps;
 
-import com.hgjAgent.UIClient;
-import Glue.context.GlobalContext;
-import Glue.context.ScenarioContext;
-import Glue.context.WebAgentManager;
+import com.own.Agent.UIClient;
+import com.own.Glue.context.GlobalContext;
+import com.own.Glue.context.ScenarioContext;
+import com.own.Glue.context.WebAgentManager;
 import io.cucumber.java.*;
 
 import org.openqa.selenium.WebDriver;

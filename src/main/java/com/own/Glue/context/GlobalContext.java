@@ -1,4 +1,4 @@
-package Glue.context;
+package com.own.Glue.context;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.Map;
 public class GlobalContext {
     // 单例实例，全局唯一
     private static GlobalContext instance;
-    private Map<String, Object> data = new HashMap<>();
+    private final Map<String, Object> data = new HashMap<>();
 
     // 私有构造，防止外部实例化
     private GlobalContext() {}

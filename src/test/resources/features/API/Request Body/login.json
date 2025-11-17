@@ -2,7 +2,7 @@
   "username": "",
   "account": "%{account}",
   "countryCode": "86",
-  "loginType": 1,
+  "loginType": 0,
   "registerType": 1,
   "password": "%{password}",
   "rememberMe": true,

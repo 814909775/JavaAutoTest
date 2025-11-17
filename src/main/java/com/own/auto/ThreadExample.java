@@ -1,4 +1,4 @@
-package com.hgj.booing.auto;
+package com.own.auto;
 
 public class ThreadExample {
     public static void main(String[] args) {

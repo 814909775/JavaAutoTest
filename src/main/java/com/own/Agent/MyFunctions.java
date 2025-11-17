@@ -1,11 +1,11 @@
-package com.hgjAgent;
+package com.own.Agent;
 
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.apache.commons.beanutils.PropertyUtils;
 
-import org.openqa.selenium.WebDriver;
+
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.FileInputStream;
@@ -21,7 +21,7 @@ public class MyFunctions {
 
     public static  HashMap<String, Object> loadConfig() {
         Yaml yaml = new Yaml();
-        HashMap<String, Object> map = new HashMap<>();
+        HashMap<String, Object> map;
         try {
             FileInputStream fis = new FileInputStream(System.getProperty ("user.dir")+"/config/config.yml");
             map = yaml.load(fis);
@@ -34,6 +34,8 @@ public class MyFunctions {
     public static Map<String,String> getUserInfo(){
 
         HashMap<String, Object> map = loadConfig();
+        // 修改 getUserInfo 方法以增强类型安全性
+        @SuppressWarnings("unchecked")
         Map<String, String> userInfoMap = (Map<String, String>) map.get("UserInfo");
         if (userInfoMap == null) {
             throw new RuntimeException("YAML中未找到UserInfo节点");
@@ -44,7 +46,7 @@ public class MyFunctions {
     public static String getURL(String webSiteName){
 
         HashMap<String, Object> map = loadConfig();
-        String url = "";
+        String url;
 
         try {
             String environmentName = System.getProperty ("env");
@@ -62,7 +64,7 @@ public class MyFunctions {
     public static String getXpath(String pageName ,String element){
 
         Yaml yaml = new Yaml();
-        HashMap<String, Object> map = new HashMap<>();
+        HashMap<String, Object> map;
         StringBuilder xpathDic = new StringBuilder();
         xpathDic.append(pageName);
         xpathDic.append(".");

@@ -1,4 +1,4 @@
-package Glue.context;
+package com.own.Glue.context;
 
 import io.cucumber.java.Scenario;
 import io.github.bonigarcia.wdm.WebDriverManager;

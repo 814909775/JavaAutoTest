@@ -1,6 +1,6 @@
-package com.hgjAgent;
+package com.own.Agent;
 
-import Glue.context.GlobalContext;
+import com.own.Glue.context.GlobalContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.hgjAgent.MyFunctions.getUserInfo;
+import static com.own.Agent.MyFunctions.getUserInfo;
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

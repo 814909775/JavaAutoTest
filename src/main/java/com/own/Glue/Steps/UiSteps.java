@@ -1,14 +1,14 @@
-package Glue.Steps;
+package com.own.Glue.Steps;
 
-import com.hgjAgent.UIClient;
-import Glue.context.GlobalContext;
+import com.own.Agent.UIClient;
+import com.own.Glue.context.GlobalContext;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-import Glue.context.ScenarioContext;
+import com.own.Glue.context.ScenarioContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

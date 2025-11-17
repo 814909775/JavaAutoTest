@@ -35,7 +35,7 @@ User Center:
   确定: //span[text()="确定"]
   CommonInput: //*[(local-name()='input' or local-name()='textarea') and @fieldname ='{item}']
   CommonSelect: //span[contains(text(),'{item}')]
-  CommonInputAndSelect: //div[not(contains(@style,'display:none'))]/div/div/div/ul/li/span[contains(text(),'{item}')]
+  CommonInputAndSelect: "//div[not(contains(@style,'display: none'))]/div/div/div/ul/li/span[contains(text(),'{item}')]"
 
 订舱表单:
   trait: //span[text()=" 提交订舱 "]

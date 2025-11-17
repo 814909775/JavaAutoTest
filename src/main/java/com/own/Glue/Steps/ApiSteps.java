@@ -1,8 +1,8 @@
-package Glue.Steps;
+package com.own.Glue.Steps;
 
-import com.hgjAgent.ApiClient;
-import Glue.context.GlobalContext;
-import Glue.context.ScenarioContext;
+import com.own.Agent.ApiClient;
+import com.own.Glue.context.GlobalContext;
+import com.own.Glue.context.ScenarioContext;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;

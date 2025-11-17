@@ -1,4 +1,4 @@
-package com.hgjAgent;
+package com.own.Agent;
 
 import io.cucumber.java.Scenario;
 import org.apache.commons.beanutils.PropertyUtils;
@@ -15,9 +15,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import static com.hgjAgent.MyFunctions.loadConfig;
-import static Glue.Hook.currentTime;
-import static Glue.Hook.scenarioResults;
+import static com.own.Agent.MyFunctions.loadConfig;
+import static com.own.Glue.Steps.Hook.currentTime;
+import static com.own.Glue.Steps.Hook.scenarioResults;
 
 public class EmailUtils {
     @SuppressWarnings("unchecked")
